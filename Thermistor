@@ -1,0 +1,74 @@
+// the value of the 'other' resistor
+#define SERIESRESISTOR 10000    
+ 
+// What pin to connect the sensor to
+#define THERMISTORPIN A0 
+ 
+void setup(void) {
+  Serial.begin(9600);
+}
+ 
+void loop(void) {
+  float reading;
+
+  /* //Steinhart-Hart coefficients
+  float A = 3.354016*pow(10,(-3));
+  float B = 2.569850*pow(10,(-4));
+  float C = 2.620131*pow(10,(-6));
+  float D = 6.383091*pow(10,(-8));*/
+  
+  reading = analogRead(THERMISTORPIN);
+ 
+  Serial.print("Analog reading: "); 
+  Serial.println(reading);
+ 
+  // convert the value to resistance
+  reading = (1023 / reading)  - 1;
+  reading = SERIESRESISTOR / reading;
+  Serial.print("Thermistor resistance "); 
+  Serial.println(reading);
+
+  /*float Tk = (A + B*ln(SERIESRESISTOR/R) + C*(ln(SERIESRESISTOR/R))^2 + D*(ln(SERIESRESISTOR/R))^3)^-1;
+  float Tc = Tk - 273.15;
+
+  serial.println("Thermistor Value: "); serial.println(Tc); */
+ 
+  delay(1000);
+}
+
+/*// the value of the 'other' resistor
+#define SERIESRESISTOR 10000    
+ 
+// What pin to connect the sensor to
+ 
+int ThermistorRead = 7;
+int ADC = 0;
+
+
+void setup() {
+  Serial.begin(9600);
+  
+  
+}
+ 
+void loop() {
+
+  int ADC;
+  float Tk;
+  float Tc;
+  float R;
+  float A;
+  float B;
+  float C;
+  float D;
+  
+
+  ADC = analogRead(ThermistorRead);
+ 
+  // convert the value to resistance
+  R = SERIESRESISTOR / ((1023 / ADC)  - 1));
+
+  //Calculating the temperature in Kelvin and converting to Celsius
+
+  delay(1000);
+}*/
